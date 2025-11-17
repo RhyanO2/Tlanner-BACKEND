@@ -6,10 +6,6 @@ const router = express.Router();
 
 
 
-router.get('/',async(req,res)=>{
-    res.send('A')
-})
-
 
 /**
  * @swagger
@@ -106,7 +102,7 @@ router.get('/user/:id' ,auth,taskController.GetTasksFromUser);
  *       500:
  *         description: Erro interno no servidor
  */
-router.post('/' ,taskController.PostTask);
+router.post('/' ,auth,taskController.PostTask);
 
 
 
