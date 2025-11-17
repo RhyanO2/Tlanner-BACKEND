@@ -16,8 +16,22 @@ const swaggerOptions = {
     info: {
       title: "API Tlanner",
       version: "1.0.0",
-      description: "Tlanner Backend routes documentation",
+      description: `Tlanner Backend routes documentation.
+      Login and paste token in the authorize field  `,
     },
+    components: {
+        securitySchemes: {
+          bearerAuth: {
+            type: "http",
+            scheme: "bearer",
+            bearerFormat: "JWT"
+          },
+        },
+    },
+    security: [{
+      bearerAuth: [],
+    },
+    ],
     servers: [
       {
         url: "http://localhost:3000",

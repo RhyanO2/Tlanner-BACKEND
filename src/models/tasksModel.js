@@ -12,12 +12,12 @@ module.exports = {
 
     return rows;
   },
-  CreateTask: async (userData) => {
-    const { name, description, status, prazo, id_user } = userData;
+  CreateTask: async (taskData) => {
+    const { name, description, status, prazo, id_user } = taskData;
 
     await pool.query(
       "INSERT INTO Task (name,description,status,prazo,id_user) VALUES (?,?,?,?,?)",
-      [name, description, status, prazo, id_user],
+      [name, description, status, prazo, id_user]
     );
 
     return "Task Criada!";
@@ -28,7 +28,7 @@ module.exports = {
 
     await pool.query(
       "UPDATE Task SET name=?, description=?,status=?,prazo=? WHERE id=?",
-      [name, description, status, prazo, taskId],
+      [name, description, status, prazo, taskId]
     );
 
     return "Task Atualizada!";

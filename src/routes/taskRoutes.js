@@ -1,7 +1,14 @@
 const express = require('express');
 const taskController = require('../controllers/tasksController');
+const auth = require('../middlewares/auth');
 
 const router = express.Router();
+
+
+
+router.get('/',async(req,res)=>{
+    res.send('A')
+})
 
 
 /**
@@ -13,7 +20,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /tasks/user/{id}:
+ * /task/user/{id}:
  *   get:
  *     summary: Retorna todas as tarefas de um usuário
  *     tags: [Tasks]
@@ -48,10 +55,14 @@ const router = express.Router();
  *       500:
  *         description: Erro interno no servidor
  */
-router.get('user/:id' ,taskController.GetTasksFromUser);
+router.get('/user/:id' ,auth,taskController.GetTasksFromUser);
+
+
+
+
 /**
  * @swagger
- * /tasks:
+ * /task:
  *   post:
  *     summary: Cria uma nova tarefa
  *     tags: [Tasks]
@@ -76,7 +87,11 @@ router.get('user/:id' ,taskController.GetTasksFromUser);
  *                 example: Corrigir problema de autenticação no backend
  *               status:
  *                 type: string
- *                 example: em andamento
+ *                 enum: 
+ *                   - PENDENTE
+ *                   - EM-ANDAMENTO
+ *                   - REALIZADA
+ *                 example: EM-ANDAMENTO
  *               prazo:
  *                 type: string
  *                 example: 2025-11-30
@@ -92,9 +107,12 @@ router.get('user/:id' ,taskController.GetTasksFromUser);
  *         description: Erro interno no servidor
  */
 router.post('/' ,taskController.PostTask);
+
+
+
 /**
  * @swagger
- * /tasks/{id}:
+ * /task/{id}:
  *   put:
  *     summary: Atualiza os dados de uma tarefa existente
  *     tags: [Tasks]
@@ -132,10 +150,13 @@ router.post('/' ,taskController.PostTask);
  *       500:
  *         description: Erro interno no servidor
  */
-router.put('/:id' ,taskController.UpdateTask);
+router.put('/:id' ,auth,taskController.UpdateTask);
+
+
+
 /**
  * @swagger
- * /tasks/{id}:
+ * /task/{id}:
  *   delete:
  *     summary: Remove uma tarefa existente
  *     tags: [Tasks]
@@ -154,6 +175,6 @@ router.put('/:id' ,taskController.UpdateTask);
  *       500:
  *         description: Erro interno no servidor
  */
-router.delete('/:id' ,taskController.DeleteTask);
+router.delete('/:id' ,auth,taskController.DeleteTask);
 
 module.exports = router;

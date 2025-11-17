@@ -3,9 +3,9 @@ const task = require("../models/tasksModel");
 module.exports = {
   GetTasksFromUser: async (req, res) => {
     try {
-      const taskId = req.params.id;
+      const userId = req.params.id;
 
-      const results = await task.QueryTasksFormUserId(taskId);
+      const results = await task.QueryTasksFormUserId(userId);
       res.status(200).send(results);
     } catch (err) {
       res.send("deu ruim");

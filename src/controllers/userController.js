@@ -1,4 +1,4 @@
-const user = require("../models/userModel");
+const user = require('../models/userModel');
 
 module.exports = {
   GetUserById: async (req, res) => {
@@ -7,7 +7,7 @@ module.exports = {
       const results = await user.QueryUserById(userId);
       res.status(200).send(results);
     } catch (err) {
-      res.status(500).send("Erro ao editar a task, tente novamente!");
+      res.status(500).send('Erro ao editar a task, tente novamente!');
       console.log(err);
     }
   },
@@ -15,10 +15,10 @@ module.exports = {
     try {
       const userData = req.body;
       const userId = req.params.id;
-      const results = await user.EditUser(userData,userId);
+      const results = await user.EditUser(userData, userId);
       res.status(200).send(results);
     } catch (err) {
-      res.status(500).send("Erro ao editar a task, tente novamente!");
+      res.status(500).send('Erro ao editar a task, tente novamente!');
       console.log(err);
     }
   },
@@ -28,7 +28,7 @@ module.exports = {
       const results = await user.DeleteUser(userId);
       res.status(200).send(results);
     } catch (err) {
-      res.status(500).send("Erro ao editar a task, tente novamente!");
+      res.status(500).send('Erro ao editar a task, tente novamente!');
     }
   },
 };
