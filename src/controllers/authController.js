@@ -9,7 +9,7 @@ module.exports = {
       res.status(201).send('Usuário Criado!');
     } catch (err) {
       res.status(500).send('Erro ao registrar usuário!');
-      throw err;
+      throw err
     }
   },
 
@@ -28,6 +28,7 @@ module.exports = {
       res.status(200).json({user, token});
     } catch (err) {
       res.status(500).send(err);
+      console.log('Object Notation Wrong?')
       throw err;
     }
   },
