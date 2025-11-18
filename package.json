@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "vitest",
+    "test": "jest",
     "swagger:check": "swagger-jsdoc -d swaggerDef.js -o swagger-output.json",
     "start": "nodemon server",
     "docker": "docker-compose up -d",
@@ -26,12 +26,10 @@
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "eslint": "^9.39.1",
     "globals": "^16.5.0",
+    "jest": "^30.2.0",
     "nodemon": "^3.1.11",
     "prettier": "^3.6.2",
-    "supertest": "^7.1.4",
-    "vitest": "^4.0.9"
+    "supertest": "^7.1.4"
   }
 }
