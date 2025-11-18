@@ -6,12 +6,10 @@ module.exports = {
     try {
       const authData = req.body;
       const results = await userAuth.RegisterUser(authData);
-      res.status(201).send(results);
-
+      res.status(201).send('Usuário Criado!');
     } catch (err) {
-      console.log('JSON object incorreto');
-      console.log(err);
       res.status(500).send('Erro ao registrar usuário!');
+      throw err
     }
   },
 
@@ -29,8 +27,9 @@ module.exports = {
 
       res.status(200).json({user, token});
     } catch (err) {
-      console.log(err);
       res.status(500).send(err);
+      console.log('Object Notation Wrong?')
+      throw err;
     }
   },
 };
