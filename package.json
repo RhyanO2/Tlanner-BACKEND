@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "swagger:check": "swagger-jsdoc -d swaggerDef.js -o swagger-output.json",
-    "start": "nodemon server",
+    "start": "nodemon src/server",
     "docker": "docker-compose up -d",
     "d-res": "docker compose up -d --build"
   },

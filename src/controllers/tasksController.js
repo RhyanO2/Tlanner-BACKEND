@@ -8,7 +8,8 @@ module.exports = {
       const results = await task.QueryTasksFormUserId(userId);
       res.status(200).send(results);
     } catch (err) {
-      res.send("deu ruim");
+      const userId = req.params.id;
+    res.send(`Não foi possível encontrar tarefas para o usuário com o ID: ${userId}`);
       console.log(err);
     }
   },
