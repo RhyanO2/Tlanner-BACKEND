@@ -1,5 +1,6 @@
 const express = require('express');
 const authController = require('../controllers/authController');
+const pool = require("../config/database");
 
 const router = express.Router();
 /**
@@ -90,5 +91,14 @@ router.post('/register', authController.Register);
  */
 
 router.post('/login', authController.Login);
+router.get('/a', async()=>{
+    try {
+  const result = await pool.query("SELECT 1");
+  console.log("MySQL OK", result);
+} catch (err) {
+  console.error("ERRO MySQL:", err);
+}
+
+});
 
 module.exports = router;
