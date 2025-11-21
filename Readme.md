@@ -6,7 +6,7 @@ Tlanner é um task manager/planner simples e prático, onde o usuário pode regi
 
 ## Como Rodar?
 
-No console rode <br>
+No console rode: <br>
 ``npm i`` <br>
 ``docker-compose up``
 
