@@ -93,8 +93,8 @@ router.post('/register', authController.Register);
 router.post('/login', authController.Login);
 router.get('/a', async()=>{
     try {
-  const result = await pool.query("SELECT 1");
-  console.log("MySQL OK", result);
+  const results = await pool.query("SELECT 1");
+  console.log("MySQL OK", results);
 } catch (err) {
   console.error("ERRO MySQL:", err);
 }

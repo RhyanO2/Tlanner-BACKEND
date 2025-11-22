@@ -5,7 +5,7 @@ module.exports = {
     try {
       const userId = req.params.id;
 
-      const results = await task.QueryTasksFormUserId(userId);
+      const results = await task.QueryTasksFromUserId(userId);
       res.status(200).send(results);
     } catch (err) {
       const userId = req.params.id;
@@ -20,8 +20,11 @@ module.exports = {
       const results = await task.CreateTask(taskData);
       res.status(201).send(results);
     } catch (err) {
-      res.status(500).send("Erro ao criar a task, tente novamente!");
-      console.log(err)
+      res.status(500).send({
+        message: "Erro ao criar a task, tente novamente!",
+        error: err
+      });
+      throw err
     }
   },
 

@@ -1,7 +1,7 @@
 const pool = require("../config/database");
 
 module.exports = {
-  QueryTasksFormUserId: async (userId) => {
+  QueryTasksFromUserId: async (userId) => {
     const [rows] = await pool.query(
       `SELECT Task.name,Task.status,Task.prazo 
         from User 

@@ -1,48 +1,48 @@
-const pool = require('../config/database');
-const bcrypt = require('bcrypt');
+// const pool = require('../config/database');
+// const bcrypt = require('bcrypt');
 
-module.exports = {
-  getAllUsers: async () => {
-    const user = await pool.query('SELECT (name,email) FROM User');
+// module.exports = {
+//   getAllUsers: async () => {
+//     const user = await pool.query('SELECT (name,email) FROM User');
 
-    return user;
-  },
+//     return user;
+//   },
 
-  getUserById: async (authData) => {
-    const { email } = authData;
+//   getUserById: async (authData) => {
+//     const { email } = authData;
 
-    const user = await pool.query('SELECT name, email FROM User WHERE id=?', [
-      email,
-    ]);
+//     const user = await pool.query('SELECT name, email FROM User WHERE id=?', [
+//       email,
+//     ]);
 
-    return user;
-  },
-  getUserByEmail: async (authData) => {
-    const { email } = authData;
+//     return user;
+//   },
+//   getUserByEmail: async (authData) => {
+//     const { email } = authData;
 
-    const user = await pool.query('SELECT * FROM User WHERE email=?', [email]);
-    return user;
-  },
-  createUser: async (authData) => {
-    const { name, email, password } = authData;
+//     const user = await pool.query('SELECT * FROM User WHERE email=?', [email]);
+//     return user;
+//   },
+//   createUser: async (authData) => {
+//     const { name, email, password } = authData;
 
-    try {
-      const hash = await bcrypt.hash(password, 10);
-      await pool.query(
-        'INSERT INTO User (name,email,password) VALUES (?,?,?)',
-        [name, email, hash],
-      );
-      const createdUser = await pool.query(
-        'SELECT name, email FROM User  WHERE email=?',
-        [email],
-      );
+//     try {
+//       const hash = await bcrypt.hash(password, 10);
+//       await pool.query(
+//         'INSERT INTO User (name,email,password) VALUES (?,?,?)',
+//         [name, email, hash],
+//       );
+//       const createdUser = await pool.query(
+//         'SELECT name, email FROM User  WHERE email=?',
+//         [email],
+//       );
 
-      return createdUser[0];
-    } catch (err) {
-      return {
-        error: `${err}`,
-        message: 'Error database',
-      };
-    }
-  },
-};
+//       return createdUser[0];
+//     } catch (err) {
+//       return {
+//         error: `${err}`,
+//         message: 'Error database',
+//       };
+//     }
+//   },
+// };

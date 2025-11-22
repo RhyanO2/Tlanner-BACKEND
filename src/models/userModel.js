@@ -1,4 +1,5 @@
 const pool = require("../config/database");
+const bcrypt = require("bcrypt");
 
 module.exports = {
    getAllUsers: async () => {
@@ -7,19 +8,18 @@ module.exports = {
     return user;
   },
 
-  getUserById: async (authData) => {
-    const { email } = authData;
+  getUserById: async (userId) => {
 
     const user = await pool.query('SELECT name, email FROM User WHERE id=?', [
-      email,
+      userId,
     ]);
 
-    return user;
+    return user[0];
   },
   getUserByEmail: async (authData) => {
     const { email } = authData;
 
-    const user = await pool.query('SELECT * FROM User WHERE email=?', [email]);
+    const user = await pool.query('SELECT * FROM User  WHERE email=?', [email]);
     return user;
   },
   createUser: async (authData) => {

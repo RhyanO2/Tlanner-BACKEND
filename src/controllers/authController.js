@@ -7,10 +7,10 @@ module.exports = {
     try {
       const authData = req.body;
     
-      const result = await userAuth.createUser(authData);
+      const results = await userAuth.createUser(authData);
       res.status(201).send(
         {
-          createdUser: result,
+          createdUser: results,
           message: 'Usuario criado'
         }
       );
@@ -31,7 +31,9 @@ module.exports = {
           erro: 'Usuário não encontrado',
         });
         const user = rows[0];
+        // console.log(user.password);
         const valid = bcrypt.compare(password,user.password);
+        
         if(!valid) return res.status(401).send({
           erro:'Wrong Password!'
         });
