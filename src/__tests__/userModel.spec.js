@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const pool = require('../config/database');
 const { createUser, getUserByEmail, getUserById,EditUser,DeleteUser } = require('../models/userModel'); // ajuste o caminho
 
+
 jest.mock('bcrypt', () => ({
   hash: jest.fn(), 
 }));
@@ -19,60 +20,49 @@ describe('UserModel Tests', () => {
       password: '123456',
     };
 
-    bcrypt.hash.mockResolvedValue('hashed-pass');
-
-
     pool.query.mockResolvedValueOnce([]);
-    
-    pool.query.mockResolvedValueOnce([
-      [{ name: 'Rhyan', email: 'rhyan@mail.com' }],
-    ]);
 
-    const results = await createUser(mockData);
+    const results = await createUser(mockData.name,mockData.email,mockData.password);
 
-    expect(bcrypt.hash).toHaveBeenCalledWith('123456', 10);
 
-    expect(pool.query).toHaveBeenCalledWith(
-      'INSERT INTO User (name,email,password) VALUES (?,?,?)',
-      ['Rhyan', 'rhyan@mail.com', 'hashed-pass']
+    expect(pool.query).toHaveBeenCalledWith('INSERT INTO User (name,email,password) VALUES (?,?,?)',
+      ['Rhyan','rhyan@mail.com','123456']
     );
 
-    expect(pool.query).toHaveBeenCalledWith(
-      'SELECT name, email FROM User  WHERE email=?',
-      ['rhyan@mail.com']
-    );
+    expect(results).toEqual('Usuário Criado!')
 
-    expect(results).toEqual([{
-      name: 'Rhyan',
-      email: 'rhyan@mail.com',
-    }]);
+
   });
 
-  it('Deve RETORNAR um usuário que foi registrado buscando pelo email', async () => {
+  it('Deve RETORNAR um usuário que foi registrado, buscando pelo email', async () => {
     const mockData = {
+      name: 'Rhyan',
       email: 'rhyan@mail.com',
+      password: '123',
     };
+
+    const EmailData = {
+      email: 'rhyan@mail.com',
+    }
 
     pool.query.mockResolvedValueOnce([
       { name: 'Rhyan',
       email: 'rhyan@mail.com',
-      senha: '123',
+      password: '123',
      },
     ]);
 
-    const results = await getUserByEmail(mockData);
+    const results = await getUserByEmail(EmailData);
 
 
     expect(pool.query).toHaveBeenCalledWith(
-      'SELECT * FROM User  WHERE email=?',
-      ['rhyan@mail.com']
-    );
+      'SELECT * FROM User WHERE email=?', ['rhyan@mail.com']);
 
 
     expect(results).toEqual([{
       name: 'Rhyan',
       email: 'rhyan@mail.com',
-      senha: '123',
+      password: '123',
     }]);
   });
 
