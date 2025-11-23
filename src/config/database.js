@@ -14,7 +14,7 @@ const pool = mysql.createPool({
   user: process.env.DB_USER || `${env.user}`,
   password: process.env.DB_PASSWORD || `${env.password}`,
   database: process.env.DB_NAME || `${env.database}`,
-  // port: process.env.DB_PORT_APP || `${env.porta}`
+  port: process.env.DB_PORT_APP || `${env.porta}`
 });
 
 
