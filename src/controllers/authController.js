@@ -1,23 +1,34 @@
+const {createUser, getUserByEmail} = require('../models/userModel');
 const userAuth = require('../models/userModel');
 const jwtService = require('../services/jwtService');
 const bcrypt = require('bcrypt');
 
 module.exports = {
   Register: async (req, res) => {
-    try {
-      const authData = req.body;
+
+    const { name, email, password } = req.body ;
     
-      const results = await userAuth.createUser(authData);
-      res.status(201).send(
-        {
-          createdUser: results,
-          message: 'Usuario criado'
-        }
-      );
+    try {
+      const createdUser = await getUserByEmail(email);
+      if(createdUser ===0){
+
+      
+      const hash = await bcrypt.hash(password, 10);
+      await createUser(name,email,hash);
+
+      res.status(201).send('Usuário Criado!');
+      }else{
+        res.status(409).send('Esse email já foi registrado!');
+      }
+      
     } catch (err) {
-      res.status(500).send('Erro ao registrar usuário!');
-      throw err
+      res.status(500).json({
+        error: `${err}`
+      });
+    
     }
+
+
   },
 
   Login: async (req, res) => {
